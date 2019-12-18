@@ -20,14 +20,14 @@ public interface graph {
 	 * @param src
 	 * @param dest
 	 * @return
-	 */
-	public edge_data getEdge(int src, int dest);
+	 *///IF not exsist return null , 
+	public edge_data getEdge(int src, int dest);//hashmap
 	/**
 	 * add a new node to the graph with the given node_data.
 	 * Note: this method should run in O(1) time.
 	 * @param n
 	 */
-	public void addNode(node_data n);
+	public void addNode(node_data n);//hash
 /**
  * Connect an edge with weight w between node src to node dest.
  * * Note: this method should run in O(1) time.
@@ -35,7 +35,7 @@ public interface graph {
  * @param dest - the destination of the edge.
  * @param w - positive weight representing the cost (aka time, price, etc) between src-->dest.
  */
-	public void connect(int src, int dest, double w);
+	public void connect(int src, int dest, double w);//hashmap
 	/**
 	 * This method return a pointer (shallow copy) for the
 	 * collection representing all the nodes in the graph. 
@@ -49,7 +49,7 @@ public interface graph {
 	 * the given node (all the edges starting (source) at the given node). 
 	 * Note: this method should run in O(1) time.
 	 * @return Collection<edge_data>
-	 */
+	 *///מחזירה את כל הצלעות שיוצאות מקודקוד מסויים
 	public Collection<edge_data> getE(int node_id);
 	/**
 	 * Delete the node (with the given ID) from the graph -
@@ -80,7 +80,7 @@ public interface graph {
 	public int edgeSize();
 /**
  * return the Mode Count - for testing changes in the graph.
- * @return
+ * @return/מחשב אם היה שינוי עם קאונטר מסויים
  */
 	public int getMC();
 }
