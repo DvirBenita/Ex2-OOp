@@ -15,6 +15,9 @@ public class edgeData implements edge_data{
 		this.dest=dest;
 		this.weight=w;
 	}
+	public edgeData(edge_data edge) {
+		this(edge.getSrc(),edge.getDest(),edge.getWeight());
+	}
 	@Override
 	public int getSrc() {
 		

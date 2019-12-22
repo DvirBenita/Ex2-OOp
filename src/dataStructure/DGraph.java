@@ -1,20 +1,43 @@
 package dataStructure;
 
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import utils.edgeData;
+import utils.nodeData;
 
 
 
-public class DGraph implements graph{
+public class DGraph implements graph {
 
-	private HashMap<String, edge_data> edges = new HashMap<>();
-	private HashMap<Integer,node_data> vertex = new HashMap<>();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private HashMap<String, edge_data> edges ;
+	private HashMap<Integer,node_data> vertex ;
 	private HashMap<Integer,HashMap<Integer,edge_data>> E;
 	//	private HashMap<Integer,MyDS> forE;
-	private int change=0;
+	private int change;
 
+	public DGraph() {
+		this.edges = new HashMap<String, edge_data>();
+		this.vertex = new HashMap<Integer, node_data>();
+		this.E= new HashMap<Integer, HashMap<Integer,edge_data>>();
+		this.change = Integer.MAX_VALUE;
+	}
+	public DGraph(HashMap<String, edge_data> edges , HashMap<Integer,node_data> vertex,HashMap<Integer,HashMap<Integer,edge_data>> E,int change) {
+		this.edges = copyWithStringKey(edges);
+		this.vertex = copyWithIntegerKey(vertex);
+		this.E= copyWithIntegerHashInt(E);
+		this.change = Integer.MAX_VALUE;
+	}
+
+	public graph copy() {
+		return new DGraph(this.getEdges(),this.getVertex(),this.getE(),this.getChange());
+	}
 
 	@Override
 	public node_data getNode(int key) {
@@ -87,6 +110,7 @@ public class DGraph implements graph{
 		edges.remove(""+src+","+dest);
 		E.get(src).remove(dest);//O(1)
 		// forE.get(src).remove(current);
+		this.change++;
 		return current;
 	}
 
@@ -97,7 +121,6 @@ public class DGraph implements graph{
 
 	@Override
 	public int edgeSize() {
-
 		return edges.values().size();
 	}
 
@@ -105,5 +128,73 @@ public class DGraph implements graph{
 	public int getMC() {
 		return this.change;
 	}
+	
 
+	
+	public static HashMap<String, edge_data> copyWithStringKey(HashMap<String, edge_data> original)
+	{
+		String s="";
+		HashMap<String, edge_data> copy = new HashMap<String, edge_data>();
+		for (Map.Entry<String, edge_data> entry : original.entrySet())
+		{
+			s+=entry.getKey();
+			copy.put(s,new edgeData(entry.getValue()));
+			s="";
+		}
+		return copy;
+	}
+	private static HashMap<Integer, node_data> copyWithIntegerKey(HashMap<Integer, node_data> original)
+	{
+		HashMap<Integer, node_data> copy = new HashMap<Integer, node_data>();
+		for (Map.Entry<Integer, node_data> entry : original.entrySet())
+		{
+			copy.put(entry.getKey(),new nodeData(entry.getValue()));
+		}
+		return copy;
+	}
+	private static HashMap<Integer, edge_data> copyWithIntegerKeyandEdge(HashMap<Integer, edge_data> original)
+	{
+		HashMap<Integer, edge_data> copy = new HashMap<Integer, edge_data>();
+		for (Map.Entry<Integer, edge_data> entry : original.entrySet())
+		{
+			copy.put(entry.getKey(),new edgeData(entry.getValue()));
+		}
+		return copy;
+	}
+	private HashMap<Integer, HashMap<Integer, edge_data>> copyWithIntegerHashInt(
+			HashMap<Integer, HashMap<Integer, edge_data>> original) {
+		HashMap<Integer, HashMap<Integer, edge_data>> copy = new HashMap<Integer, HashMap<Integer,edge_data>>();
+
+		for (Map.Entry<Integer, HashMap<Integer, edge_data>> entry : original.entrySet())
+		{
+			copy.put(entry.getKey(), copyWithIntegerKeyandEdge(entry.getValue()));
+			
+		}
+		return copy;
+	}
+
+	public HashMap<String, edge_data> getEdges() {
+		return edges;
+	}
+	public void setEdges(HashMap<String, edge_data> edges) {
+		this.edges = edges;
+	}
+	public HashMap<Integer, node_data> getVertex() {
+		return vertex;
+	}
+	public void setVertex(HashMap<Integer, node_data> vertex) {
+		this.vertex = vertex;
+	}
+	public HashMap<Integer, HashMap<Integer, edge_data>> getE() {
+		return E;
+	}
+	public void setE(HashMap<Integer, HashMap<Integer, edge_data>> e) {
+		E = e;
+	}
+	public int getChange() {
+		return change;
+	}
+	public void setChange(int change) {
+		this.change = change;
+	}
 }
