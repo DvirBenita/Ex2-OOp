@@ -1,5 +1,8 @@
 package algorithms;
 
+import java.util.Arrays;
+import java.util.List;
+
 import dataStructure.DGraph;
 import utils.Point3D;
 import utils.nodeData;
@@ -27,7 +30,7 @@ public class main {
 		dg.connect(2,3 , 15);
 		dg.connect(3,2 , 15);
 		dg.connect(3,5 , 11);
-		dg.connect(3,4 , 6);
+		//dg.connect(3,4 , 6);
 		dg.connect(4,3 , 6);
 		dg.connect(4,0 , 9);
 		dg.connect(0,5 , 2);
@@ -40,6 +43,10 @@ public class main {
 		
 		
 		System.out.println(gra.shortestPathDist(1, 4));
+		List<node_data> temp = gra.shortestPath(1, 4);
+		
+		
+		System.out.println(gra.isConnected());
 		
 		
 	}

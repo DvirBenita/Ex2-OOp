@@ -26,7 +26,8 @@ public class nodeData implements node_data{
 		this.tag=tag;
 
 	}
-
+	
+	
 	public nodeData(node_data value) {
 		this(value.getKey(),value.getLocation(),value.getWeight(),value.getInfo(),value.getTag());
 	}

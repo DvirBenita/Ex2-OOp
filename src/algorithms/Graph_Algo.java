@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import dataStructure.DGraph;
+import dataStructure.edge_data;
 import dataStructure.graph;
 import dataStructure.node_data;
 import utils.dijkstras;
@@ -28,7 +29,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 
 
-	
+
 	@Override
 	public void init(graph g) {
 		Graph = g;
@@ -54,7 +55,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	}
 
 	@Override
-	public void save(String file_name) {
+	public void save(String file_name) {////////////////////////////
 		try {
 			FileOutputStream f = new FileOutputStream(file_name);
 			ObjectOutputStream o = new ObjectOutputStream(f);
@@ -73,11 +74,35 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 	@Override
 	public boolean isConnected() {
-		// TODO Auto-generated method stub
-		return false;
+		setFalse();
+		for(node_data n : ((DGraph)Graph).getVertex().values()) {
+
+			setFalse();
+
+			DFS(n,(DGraph)Graph);
+
+			for(node_data b : ((DGraph)Graph).getVertex().values()) {
+				if(b.getTag()!=1)
+					return false;
+			}
+		}
+		return true;
 	}
 
+	private static void DFS(node_data n,DGraph Graph) {
 
+		n.setTag(1);
+
+		for(edge_data edge: Graph.getE(n.getKey())) {
+			if((Graph).getVertex().get(edge.getDest()).getTag()!=1) {
+				DFS((Graph).getVertex().get(edge.getDest()), Graph);
+			}
+
+		}
+
+	}
+
+	
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
@@ -86,8 +111,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 	@Override
 	public List<node_data> shortestPath(int src, int dest) {
-		// TODO Auto-generated method stub
-		return null;
+		return new dijkstras((DGraph) Graph).dijkstra1(src, dest);
 	}
 
 	@Override
@@ -100,12 +124,15 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	public graph copy() {
 		return ((DGraph)Graph).copy();
 	}
-//////////////////////////////////////////////////
-	
-	
-	
-	
-	
-	
-	
+
+	private void setFalse() {
+		for(node_data n : ((DGraph)Graph).getVertex().values()) {
+			n.setTag(0);
+		}
+	}
+
+
+
+
+
 }
