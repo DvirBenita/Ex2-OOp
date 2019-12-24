@@ -6,7 +6,8 @@ import java.util.List;
 import dataStructure.DGraph;
 import utils.Point3D;
 import utils.nodeData;
-import dataStructure.node_data; 
+import dataStructure.node_data;
+import gui.Graph_GUI; 
 public class main {
 
 	public static void main(String[] args) {
@@ -42,12 +43,13 @@ public class main {
 		gra.init(dg);
 		
 		
-		System.out.println(gra.shortestPathDist(1, 4));
-		List<node_data> temp = gra.shortestPath(1, 4);
+//		System.out.println(gra.shortestPathDist(1, 4));
+//		List<node_data> temp = gra.shortestPath(1, 4);
 		
 		
 		System.out.println(gra.isConnected());
-		
+		Graph_GUI window = new Graph_GUI(dg);
+		window.setVisible(true);
 		
 	}
 

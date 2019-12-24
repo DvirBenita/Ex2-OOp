@@ -30,6 +30,8 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 
 
+	
+	
 	@Override
 	public void init(graph g) {
 		Graph = g;
@@ -37,7 +39,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 	@Override
 	public void init(String file_name)  {
-		try {///////////////////////////////////////////////////////chek this and save one
+		try {
 			FileInputStream f = new FileInputStream(file_name);
 			ObjectInputStream o = new ObjectInputStream(f);
 
@@ -48,19 +50,21 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 		}catch (IOException e) {
 			System.out.println("IOException is caught");
+			e.printStackTrace();
 		}catch (ClassNotFoundException e) {
 			System.out.println("ClassNotFoundException is caught");
+			e.printStackTrace();
 		}
 
 	}
 
 	@Override
-	public void save(String file_name) {////////////////////////////
+	public void save(String file_name) {
 		try {
 			FileOutputStream f = new FileOutputStream(file_name);
 			ObjectOutputStream o = new ObjectOutputStream(f);
 
-			o.writeObject(this);
+			o.writeObject(this.Graph);
 
 			o.close();
 			f.close();
@@ -69,6 +73,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 		}catch(IOException e) {
 			System.out.println("IOException is caught");
+			e.printStackTrace();
 		}
 	}
 
@@ -102,7 +107,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 
 	}
 
-	
+
 
 	@Override
 	public double shortestPathDist(int src, int dest) {
@@ -115,7 +120,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	}
 
 	@Override
-	public List<node_data> TSP(List<Integer> targets) {
+	public List<node_data> TSP(List<Integer> targets) {////////////////////need to be done
 		// TODO Auto-generated method stub
 		return null;
 	}

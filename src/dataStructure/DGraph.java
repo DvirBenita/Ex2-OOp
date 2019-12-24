@@ -3,32 +3,32 @@ package dataStructure;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import utils.edgeData;
 import utils.nodeData;
 
 
 
-public class DGraph implements graph {
+public class DGraph implements graph,Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private HashMap<String, edge_data> edges ;
-	private HashMap<Integer,node_data> vertex ;
-	private HashMap<Integer,HashMap<Integer,edge_data>> E;
-	//	private HashMap<Integer,MyDS> forE;
+	private LinkedHashMap<String, edge_data> edges ;
+	private LinkedHashMap<Integer,node_data> vertex ;
+	private LinkedHashMap<Integer,LinkedHashMap<Integer,edge_data>> E;
+	//	private LinkedHashMap<Integer,MyDS> forE;
 	private int change;
 
 	public DGraph() {
-		this.edges = new HashMap<String, edge_data>();
-		this.vertex = new HashMap<Integer, node_data>();
-		this.E= new HashMap<Integer, HashMap<Integer,edge_data>>();
+		this.edges = new LinkedHashMap<String, edge_data>();
+		this.vertex = new LinkedHashMap<Integer, node_data>();
+		this.E= new LinkedHashMap<Integer, LinkedHashMap<Integer,edge_data>>();
 		this.change = Integer.MAX_VALUE;
 	}
-	public DGraph(HashMap<String, edge_data> edges , HashMap<Integer,node_data> vertex,HashMap<Integer,HashMap<Integer,edge_data>> E,int change) {
+	public DGraph(LinkedHashMap<String, edge_data> edges , LinkedHashMap<Integer,node_data> vertex,LinkedHashMap<Integer,LinkedHashMap<Integer,edge_data>> E,int change) {
 		this.edges = copyWithStringKey(edges);
 		this.vertex = copyWithIntegerKey(vertex);
 		this.E= copyWithIntegerHashInt(E);
@@ -54,7 +54,7 @@ public class DGraph implements graph {
 	public void addNode(node_data n) {
 		if(!vertex.containsKey(n.getKey())) {
 			vertex.put(n.getKey(), n);
-			this.E.put(n.getKey(), new HashMap<Integer,edge_data>());
+			this.E.put(n.getKey(), new LinkedHashMap<Integer,edge_data>());
 			//this.forE.put(n.getKey(), new MyDS());
 			this.change++;
 		}
@@ -74,12 +74,12 @@ public class DGraph implements graph {
 
 	@Override
 	public Collection<node_data> getV() {
-		return  this.vertex.values();
+		Collection<node_data> vertex = this.vertex.values();
+		return  vertex;
 	}
 
 	@Override
 	public Collection<edge_data> getE(int node_id) {
-
 		return	E.get(node_id).values();
 	}
 
@@ -131,10 +131,10 @@ public class DGraph implements graph {
 	
 
 	
-	public static HashMap<String, edge_data> copyWithStringKey(HashMap<String, edge_data> original)
+	public static LinkedHashMap<String, edge_data> copyWithStringKey(LinkedHashMap<String, edge_data> original)
 	{
 		String s="";
-		HashMap<String, edge_data> copy = new HashMap<String, edge_data>();
+		LinkedHashMap<String, edge_data> copy = new LinkedHashMap<String, edge_data>();
 		for (Map.Entry<String, edge_data> entry : original.entrySet())
 		{
 			s+=entry.getKey();
@@ -143,29 +143,29 @@ public class DGraph implements graph {
 		}
 		return copy;
 	}
-	private static HashMap<Integer, node_data> copyWithIntegerKey(HashMap<Integer, node_data> original)
+	private static LinkedHashMap<Integer, node_data> copyWithIntegerKey(LinkedHashMap<Integer, node_data> original)
 	{
-		HashMap<Integer, node_data> copy = new HashMap<Integer, node_data>();
+		LinkedHashMap<Integer, node_data> copy = new LinkedHashMap<Integer, node_data>();
 		for (Map.Entry<Integer, node_data> entry : original.entrySet())
 		{
 			copy.put(entry.getKey(),new nodeData(entry.getValue()));
 		}
 		return copy;
 	}
-	private static HashMap<Integer, edge_data> copyWithIntegerKeyandEdge(HashMap<Integer, edge_data> original)
+	private static LinkedHashMap<Integer, edge_data> copyWithIntegerKeyandEdge(LinkedHashMap<Integer, edge_data> original)
 	{
-		HashMap<Integer, edge_data> copy = new HashMap<Integer, edge_data>();
+		LinkedHashMap<Integer, edge_data> copy = new LinkedHashMap<Integer, edge_data>();
 		for (Map.Entry<Integer, edge_data> entry : original.entrySet())
 		{
 			copy.put(entry.getKey(),new edgeData(entry.getValue()));
 		}
 		return copy;
 	}
-	private HashMap<Integer, HashMap<Integer, edge_data>> copyWithIntegerHashInt(
-			HashMap<Integer, HashMap<Integer, edge_data>> original) {
-		HashMap<Integer, HashMap<Integer, edge_data>> copy = new HashMap<Integer, HashMap<Integer,edge_data>>();
+	private LinkedHashMap<Integer, LinkedHashMap<Integer, edge_data>> copyWithIntegerHashInt(
+			LinkedHashMap<Integer, LinkedHashMap<Integer, edge_data>> original) {
+		LinkedHashMap<Integer, LinkedHashMap<Integer, edge_data>> copy = new LinkedHashMap<Integer, LinkedHashMap<Integer,edge_data>>();
 
-		for (Map.Entry<Integer, HashMap<Integer, edge_data>> entry : original.entrySet())
+		for (Map.Entry<Integer, LinkedHashMap<Integer, edge_data>> entry : original.entrySet())
 		{
 			copy.put(entry.getKey(), copyWithIntegerKeyandEdge(entry.getValue()));
 			
@@ -173,22 +173,22 @@ public class DGraph implements graph {
 		return copy;
 	}
 
-	public HashMap<String, edge_data> getEdges() {
+	public LinkedHashMap<String, edge_data> getEdges() {
 		return edges;
 	}
-	public void setEdges(HashMap<String, edge_data> edges) {
+	public void setEdges(LinkedHashMap<String, edge_data> edges) {
 		this.edges = edges;
 	}
-	public HashMap<Integer, node_data> getVertex() {
+	public LinkedHashMap<Integer, node_data> getVertex() {
 		return vertex;
 	}
-	public void setVertex(HashMap<Integer, node_data> vertex) {
+	public void setVertex(LinkedHashMap<Integer, node_data> vertex) {
 		this.vertex = vertex;
 	}
-	public HashMap<Integer, HashMap<Integer, edge_data>> getE() {
+	public LinkedHashMap<Integer, LinkedHashMap<Integer, edge_data>> getE() {
 		return E;
 	}
-	public void setE(HashMap<Integer, HashMap<Integer, edge_data>> e) {
+	public void setE(LinkedHashMap<Integer, LinkedHashMap<Integer, edge_data>> e) {
 		E = e;
 	}
 	public int getChange() {
