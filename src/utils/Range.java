@@ -10,16 +10,28 @@ public class Range {
 		set_min(min);
 		set_max(max);
 	}
+	/**
+	 * check if is in
+	 * @param d
+	 * @return
+	 */
 	public boolean isIn(double d) {
 		boolean inSide = false;
 		if(d>=this.get_min() && d<=this.get_max()) {inSide=true;}
 		return inSide;
 	}
+	/**
+	 * Function to get the range.
+	 */
 	public String toString() {
 		String ans = "["+this.get_min()+","+this.get_max()+"]";
 		if(this.isEmpty()) {ans = "Empty Range";}
 		return ans;
 	}
+	/**
+	 * check if empty
+	 * @return
+	 */
 	public boolean isEmpty() {
 		return this.get_min()>this.get_max();
 	}

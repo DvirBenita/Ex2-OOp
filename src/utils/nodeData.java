@@ -1,19 +1,48 @@
 package utils;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import dataStructure.node_data;
 
-public class nodeData implements node_data{
+public class nodeData implements node_data,Serializable{
 	private int key;
 	private Point3D location;
 	private double weight;
 	private String info;
 	private int tag;
-
+	private int Counter=0;
+	
+	/**
+	 * Empty constructor to node data
+	 */
 	public nodeData() {
 		this.key=-1;
 		this.location=new Point3D(0,0,0);
+		this.weight=0;
+		this.info=" ";
+		this.tag=Integer.MIN_VALUE;
+	}
+	public nodeData(int key) {
+		this.key = key;
+		this.init();
+		Point3D p = new Point3D(key,key);
+		setLocation(p);
+		this.weight=0;
+		this.info=" ";
+		this.tag=Integer.MIN_VALUE;
+	}
+	/**
+	 * Constructor to node data
+	 * @param key
+	 * @param location
+	 * @param weight
+	 * @param info
+	 * @param tag
+	 */
+	public nodeData(int key,Point3D location) {
+		this.key=key;
+		this.location=new Point3D(location);
 		this.weight=0;
 		this.info=" ";
 		this.tag=Integer.MIN_VALUE;
@@ -27,11 +56,16 @@ public class nodeData implements node_data{
 
 	}
 	
-	
+	/**
+	 * Deep copy constructor.
+	 * @param value
+	 */
 	public nodeData(node_data value) {
 		this(value.getKey(),value.getLocation(),value.getWeight(),value.getInfo(),value.getTag());
 	}
-
+	/**
+	 * getters and setters
+	 */
 	@Override
 	public int getKey() {
 		return this.key;
@@ -56,8 +90,12 @@ public class nodeData implements node_data{
 
 	@Override
 	public void setWeight(double w) {
-		this.weight=w;
-
+		if(w>=0) {
+		 this.weight=w;
+		}
+		else {
+			System.out.println("cannot set negative weight");
+		}
 	}
 
 	@Override
@@ -81,6 +119,17 @@ public class nodeData implements node_data{
 	public void setTag(int t) {
 		this.tag=t;
 
+	}
+	public int getCounter() {
+		return Counter;
+	}
+	public void setCounter(int counter) {
+		Counter = counter;
+	}
+	public void init() {
+		setTag(0);
+		setInfo("");
+		setWeight(Double.MAX_VALUE);
 	}
 }
 

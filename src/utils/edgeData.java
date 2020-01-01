@@ -1,23 +1,56 @@
 package utils;
 
-import dataStructure.edge_data;
+import java.io.Serializable;
 
-public class edgeData implements edge_data{
+import dataStructure.edge_data;
+import dataStructure.node_data;
+
+public class edgeData implements edge_data,Serializable{
+	/**
+	 * 
+	 */
+
 	private int src;
 	private int dest;
 	private double weight;
 	private String info;
 	private int tag;
 	
-	
+	/**
+	 * Consrtuctors to edge data
+	 * @param src
+	 * @param dest
+	 * @param w
+	 */
 	public edgeData(int src,int dest,double w) {
+		if(w>=0) {
 		this.src=src;
 		this.dest=dest;
 		this.weight=w;
+		}else {
+			System.out.println("cannot init negative weight");
+		}
 	}
+	
+	public edgeData(node_data n1,node_data dest,double w) {
+		if(w>=0) {
+		this.src=n1.getKey();
+		this.dest=dest.getKey();
+		this.weight=w;
+		}else {
+			System.out.println("cannot init negative weight");
+		}
+	}
+	/**
+	 * Init this edge with another edge
+	 * @param edge
+	 */
 	public edgeData(edge_data edge) {
 		this(edge.getSrc(),edge.getDest(),edge.getWeight());
 	}
+	/**
+	 * getters and setters
+	 */
 	@Override
 	public int getSrc() {
 		
