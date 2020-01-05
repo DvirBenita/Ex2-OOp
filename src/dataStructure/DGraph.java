@@ -32,13 +32,20 @@ public class DGraph implements graph,Serializable {
 			this.addNode(n);
 		}
 	}
-	public DGraph(LinkedHashMap<String, edge_data> edges2, LinkedHashMap<Integer, node_data> vertex2,
-			LinkedHashMap<Integer, LinkedHashMap<Integer, edge_data>> e2, int change2) {
-		this.edges=edges2;
-		this.vertex=vertex2;
-		this.E=e2;
-		this.change = change2;
-	}
+//	/**
+//	 * Creates a shallow copied graph
+//	 * @param edges2
+//	 * @param vertex2
+//	 * @param e2
+//	 * @param change2
+//	 */
+//	public DGraph(LinkedHashMap<String, edge_data> edges2, LinkedHashMap<Integer, node_data> vertex2,
+//			LinkedHashMap<Integer, LinkedHashMap<Integer, edge_data>> e2, int change2) {
+//		this.edges=edges2;
+//		this.vertex=vertex2;
+//		this.E=e2;
+//		this.change = change2;
+//	}
 	/**
 	 * Deep copy constructor;
 	 * @param edges
@@ -46,18 +53,18 @@ public class DGraph implements graph,Serializable {
 	 * @param E
 	 * @param change
 	 */
-	//	public DGraph deepDGraph(LinkedHashMap<String, edge_data> edges , LinkedHashMap<Integer,node_data> vertex,LinkedHashMap<Integer,LinkedHashMap<Integer,edge_data>> E,int change) {
-	//		
-	//		this.edges = copyWithStringKey(edges);
-	//		this.vertex = copyWithIntegerKey(vertex);
-	//		this.E= copyWithIntegerHashInt(E);
-	//		this.change = Integer.MAX_VALUE;
-	//		
-	//	}
+		public  DGraph(LinkedHashMap<String, edge_data> edges , LinkedHashMap<Integer,node_data> vertex,LinkedHashMap<Integer,LinkedHashMap<Integer,edge_data>> E,int change) {
+			
+			this.edges = copyWithStringKey(edges);
+			this.vertex = copyWithIntegerKey(vertex);
+			this.E= copyWithIntegerHashInt(E);
+			this.change = Integer.MAX_VALUE;
+			
+		}
 
 
 	/**
-	 * return shallow copy of this graph
+	 * return deep copy of this graph
 	 * @return
 	 */
 	public graph copy() {
@@ -114,7 +121,7 @@ public class DGraph implements graph,Serializable {
 			if(w>=0) {
 				String key = ""+src+","+dest;
 				if(vertex.get(src)==null||vertex.get(dest)==null) {
-					throw new RuntimeException();
+					System.out.println("Cannot connect bewtween src:"+src+" and dest:"+dest);
 				}
 
 				
@@ -128,7 +135,7 @@ public class DGraph implements graph,Serializable {
 			}
 		}catch(Exception e) {
 
-			throw new RuntimeException("Cannot connect between src:"+src+" and dest:"+dest);
+			System.out.println("Cannot connect bewtween src:"+src+" and dest:"+dest);
 		}
 	}
 	/**

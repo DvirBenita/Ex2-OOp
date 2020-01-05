@@ -23,6 +23,9 @@ public class nodeData implements node_data,Serializable{
 		this.info=" ";
 		this.tag=Integer.MIN_VALUE;
 	}
+	/**
+	 * Constructor get paramater key
+	 */
 	public nodeData(int key) {
 		this.key = key;
 		this.init();
@@ -33,7 +36,7 @@ public class nodeData implements node_data,Serializable{
 		this.tag=Integer.MIN_VALUE;
 	}
 	/**
-	 * Constructor to node data
+	 * Constructors that gets parameters
 	 * @param key
 	 * @param location
 	 * @param weight
@@ -47,6 +50,7 @@ public class nodeData implements node_data,Serializable{
 		this.info=" ";
 		this.tag=Integer.MIN_VALUE;
 	}
+	
 	public nodeData(int key,Point3D location , double weight, String info, int tag) {
 		this.key=key;
 		this.location=new Point3D(location);

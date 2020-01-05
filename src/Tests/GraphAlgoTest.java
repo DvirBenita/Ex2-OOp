@@ -29,13 +29,11 @@ class GraphAlgoTest {
 		g.connect(1, 3, 20);
 		g.connect(2, 1, 30);
 		
-		algo = new Graph_Algo();
-		algo.init(g);
+		algo = new Graph_Algo(g);
+		
 	}
 	
 	
-	
-	/////nedd add more 2 functions and check if need add my functions
 	@Test
 	void testInitSaveToFile() {
 		algo.save("Test.txt");
@@ -114,7 +112,7 @@ class GraphAlgoTest {
 	void testCopy() {
 		graph copy = algo.copy();
 		for (node_data n : g.getV()) {
-			assertEquals(n, copy.getNode(n.getKey()));
+			assertNotEquals(n, copy.getNode(n.getKey()));
 		}
 	}
 }

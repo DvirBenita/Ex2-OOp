@@ -21,13 +21,13 @@ public interface graph {
 	 * @param dest
 	 * @return
 	 */ 
-	public edge_data getEdge(int src, int dest);//hashmap
+	public edge_data getEdge(int src, int dest);
 	/**
 	 * add a new node to the graph with the given node_data.
 	 * Note: this method should run in O(1) time.
 	 * @param n
 	 */
-	public void addNode(node_data n);//hash
+	public void addNode(node_data n);
 /**
  * Connect an edge with weight w between node src to node dest.
  * * Note: this method should run in O(1) time.

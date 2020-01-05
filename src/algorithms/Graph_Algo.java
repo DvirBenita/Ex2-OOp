@@ -28,6 +28,12 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	
 	
 	graph Graph;
+	public Graph_Algo() {
+		
+	}
+	public Graph_Algo(graph g) {
+		init(g);
+	}
 
 	/**
 	 * Init the graph
@@ -178,7 +184,7 @@ public class Graph_Algo implements graph_algorithms, Serializable{
 	
 
 	/**
-	 * Shallow copy function.
+	 * Deep copy
 	 */
 	@Override
 	public graph copy() {

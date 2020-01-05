@@ -55,8 +55,7 @@ public class Graph_GUI extends JFrame implements ActionListener,MouseListener{
 			throw new RuntimeException("Cannot init null graph sorry!");
 		}
 		Graph =gr;
-		graphAlgo = new Graph_Algo();
-		graphAlgo.init(gr);
+		graphAlgo = new Graph_Algo(gr);
 		initGui();
 
 
@@ -71,55 +70,22 @@ public class Graph_GUI extends JFrame implements ActionListener,MouseListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		MenuBar menu = new MenuBar();
 		Menu m = new Menu("Menu");
-		Menu edit = new Menu("Edit graph");
 		Menu algo = new Menu("Algorithms");
-		MenuItem ae_item = new MenuItem("Add Edge");
-		MenuItem addNode = new MenuItem("Add Node");
-		MenuItem re_item = new MenuItem("Remove Edge");
-		MenuItem rn_item = new MenuItem("Remove Node");
+
 		menu.add(m);
 		menu.add(algo);
-		menu.add(edit);
+		
 		this.setMenuBar(menu);
 		RandomL(800, 650);
 		MenuItem save = new MenuItem("Save");
 		MenuItem open = new MenuItem("Open File");
 		MenuItem isConnect= new MenuItem("isConnected");
 		addMouseListener(this);
-		addNode.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "To add node click 3 time's on the window and insert key");
-
-			}
-		});
-		ae_item.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				addEdge();
-			}
-
-		});
-		re_item.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				removeEdge();
-			}
-		});
-		rn_item.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				removeNode();
-			}
-		});
+		
 		MenuItem ShotDist = new MenuItem("shortestPathDist");
 		MenuItem shortPath = new MenuItem("shortestPath");
 		MenuItem TSP = new MenuItem("TSP");
-		edit.add(ae_item);
-		edit.add(re_item);
-		edit.add(rn_item);
-		edit.add(addNode);
+
 		save.addActionListener(this);
 		open.addActionListener(this);
 		isConnect.addActionListener(this);
@@ -443,7 +409,7 @@ public class Graph_GUI extends JFrame implements ActionListener,MouseListener{
 	}
 
 	/**
-	 * Init button
+	 * This function reboots a button
 	 * @param i
 	 */
 	private void stringBotton(int i) {
@@ -504,84 +470,9 @@ public class Graph_GUI extends JFrame implements ActionListener,MouseListener{
 			g.drawString("Invaild input",30,620);
 		}
 	}
-	public void removeEdge() {
-		try {
-			JFrame frame = new JFrame("Remove Edge");
-			JLabel src_lbl = new JLabel("src:  ");
-			JLabel dest_lbl = new JLabel("dest: ");
-			JTextField src_text = new JTextField(13);
-			JTextField dest_text = new JTextField(13);
-			JButton btn = new JButton("Remove");
-
-			frame.setVisible(true);
-			frame.setLayout(new FlowLayout());
-			frame.setBounds(200, 0, 200, 200);
-			frame.add(src_lbl);
-			frame.add(src_text);
-			frame.add(dest_lbl);
-			frame.add(dest_text);
-			frame.add(btn);
-			btn.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					try {
-						int src = Integer.parseInt(src_text.getText());
-						int dest = Integer.parseInt(dest_text.getText());
-						if(Graph.removeEdge(src, dest) != null) {
-							repaint();
-							JOptionPane.showMessageDialog(frame, "Edge has been removed", "Remove Edge",
-									JOptionPane.INFORMATION_MESSAGE);
-							frame.setVisible(false);	
-						} else {
-							JOptionPane.showMessageDialog(frame, "No such edge!", "Remove Edge", JOptionPane.ERROR_MESSAGE);
-						}
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(frame, e1.getMessage(), "Remove Edge", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-		}catch(Exception e) {
-			g.drawString("Invaild input",30,620);
-		}
-	}
+	
 
 
-	public void removeNode() {
-		try {
-			JFrame frame = new JFrame("Remove Node");
-			JLabel node_lbl = new JLabel("Node to remove: ");
-			JTextField node_text = new JTextField(5);
-			JButton btn = new JButton("Remove");
-
-			frame.setVisible(true);
-			frame.setLayout(new FlowLayout());
-			frame.setBounds(200, 0, 200, 100);
-			frame.add(node_lbl);
-			frame.add(node_text);
-			frame.add(btn);
-
-			btn.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					try {
-						int node = Integer.parseInt(node_text.getText());
-						if (Graph.removeNode(node) != null) {
-							JOptionPane.showMessageDialog(frame, "Node has been removed!", "Remove Node",
-									JOptionPane.INFORMATION_MESSAGE);
-							repaint();
-							frame.setVisible(false);
-						} else {
-							JOptionPane.showMessageDialog(frame, "No such node!", "Remove Node", JOptionPane.ERROR_MESSAGE);
-						}
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(frame, e1.getMessage(), "Remove Node", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			});
-		}catch(Exception e) {
-			g.drawString("Invaild input",30,620);
-		}
-	}
 	private void initThread() {
 		Thread t1 = new Thread(new Runnable() {
 
@@ -606,22 +497,7 @@ public class Graph_GUI extends JFrame implements ActionListener,MouseListener{
 		}) ;
 		t1.start();
 	}
-	private void addNode(Point3D p) {
-		String answer = JOptionPane.showInputDialog("Please insert key to add");
-		int key;
-		try {
-			key = Integer.parseInt(answer);
-			node_data n = new nodeData(key, p);
-			try {
-				Graph.addNode(n);
-			} catch (ArithmeticException ex) {
-				JOptionPane.showMessageDialog(null, ex.getMessage());
-			}
 
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-		}
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -649,12 +525,6 @@ public class Graph_GUI extends JFrame implements ActionListener,MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 
-		if (e.getClickCount() == 3) {
-			int x = e.getX();
-			int y = e.getY();
-			addNode(new Point3D(x, y));
-			repaint();
-		}
 	}
 
 }
